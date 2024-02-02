@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Real-time data</title>
+    </head>
+    <body>
+        <button id="startBtn">Начать</button>
+        <div id="data"></div>
+        <script>
+            var startBtn = document.getElementById('startBtn');
+            var dataDiv = document.getElementById('data');
+
+            startBtn.addEventListener('click', function() {
+                var ws = new WebSocket('ws://localhost:8000/ws');
+                ws.onmessage = function(event) {
+                    var data = JSON.parse(event.data);
+                    dataDiv.innerText = JSON.stringify(data, null, 2);
+                };
+            });
+        </script>
+    </body>
+</html>
